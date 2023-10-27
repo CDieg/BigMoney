@@ -8,23 +8,36 @@ public class PlayerMotor : MonoBehaviour
     private Vector3 playerVelocity;
 
     private bool isGrounded;
-    private bool sprinting;
+
+    [SerializeField]
+    private bool isDashActive;
+    [SerializeField]
+    private bool isDashReloaded = true;
     private bool crouching;
     private bool lerpCrouch;
 
     [SerializeField]
-    private float speed = 5f;
+    private float speedValue = 5f;
+    private float speed;
     [SerializeField]
-    private float gravity = -9.8f;
+    private float playerGravity = -30f;
     [SerializeField]
     private float jumpHeight = 3f;
     [SerializeField]
     private float crouchTimer = 0f;
+    [SerializeField]
+    private float dashTimer = 0.2f;
+    [SerializeField]
+    private float dashAcceleration = 15f;
+    [SerializeField]
+    private float dashReloadTime = 2f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();   
+        controller = GetComponent<CharacterController>();
+        speed = speedValue;
     }
 
     // Update is called once per frame
@@ -55,7 +68,7 @@ public class PlayerMotor : MonoBehaviour
         moveDirection.x = input.x;
         moveDirection.z = input.y;
         controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
-        playerVelocity.y += gravity * Time.deltaTime;
+        playerVelocity.y += playerGravity * Time.deltaTime;
         if (isGrounded && playerVelocity.y < 0)
             playerVelocity.y = -2f;
         controller.Move(playerVelocity * Time.deltaTime);
@@ -66,7 +79,7 @@ public class PlayerMotor : MonoBehaviour
     {
         if (isGrounded)
         {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * playerGravity);
         }
     }
 
@@ -77,14 +90,34 @@ public class PlayerMotor : MonoBehaviour
         lerpCrouch = true;
     }
 
-    public void Sprint()
+    public void Dash()
     {
-        sprinting = !sprinting;
-        if (sprinting)
-            speed = speed * 3;
+        isDashActive = !isDashActive;
+        
+
+        if (isDashActive && isDashReloaded)
+        {
+            isDashReloaded = false;
+            speed = speedValue * dashAcceleration;
+            StartCoroutine(DashTimerRoutine());
+            StartCoroutine(DashingReload());
+        } 
         else
         {
-            speed = 5;
-        }
+            speed = speedValue;
+        }        
+    }
+
+    IEnumerator DashTimerRoutine()
+    {
+        yield return new WaitForSeconds(dashTimer);
+        isDashActive = false;
+        speed = speedValue;
+    }
+
+    IEnumerator DashingReload()
+    {
+        yield return new WaitForSeconds(dashReloadTime);
+        isDashReloaded = true;
     }
 }
