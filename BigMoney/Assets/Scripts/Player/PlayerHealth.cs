@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField]
     private int health;
     [SerializeField]
     public int maxHealth = 3;
