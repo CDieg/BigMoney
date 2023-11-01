@@ -1,25 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Header("Health")]
     [SerializeField]
     private int health;
     [SerializeField]
     public int maxHealth = 3;
 
-    // Start is called before the first frame update
+    [Header("Damage Overlay")]
+    public Image damageOverlay;
+    public float overlayDuration;
+    public float overlayFadeSpeed;
+
+    private float overlayTimer;
+
     void Start()
     {
         health = maxHealth;
+        damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (damageOverlay.color.a > 0)
+        {
+            overlayTimer += Time.deltaTime;
+            if (overlayTimer > overlayDuration) 
+            {
+                // Fade
+                float tempAlpha = damageOverlay.color.a;
+                tempAlpha -= Time.deltaTime * overlayFadeSpeed;
+                damageOverlay.color = new Color (damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, tempAlpha);
+            }
+        }
     }
 
     public void UpdateHealthUI()
@@ -30,5 +45,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        overlayTimer = 0;
+        damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 1);
     }
 }
