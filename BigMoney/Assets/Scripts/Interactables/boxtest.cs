@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class boxtest : Interactable
 {
+    [SerializeField]
+    private GameObject platform;
+    private bool platformOpen;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,9 @@ public class boxtest : Interactable
 
     protected override void Interact()
     {
+        platformOpen = !platformOpen;
+        platform.GetComponent<Animator>().SetBool("IsUp", platformOpen);
         Debug.Log("Raycasted" + gameObject.name);
+        // Include here call to the animation of the interaction
     }
 }
