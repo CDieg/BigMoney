@@ -7,8 +7,10 @@ public class PlayerLook : MonoBehaviour
     public Camera cam;
     private float xRotation = 0f;
 
-    public float xSensitivity = 30f;
-    public float ySensitivity = 30f;
+    [SerializeField]
+    public float xSensitivity = 20f;
+    [SerializeField]
+    public float ySensitivity = 20f;
     
     public void ProcessLook (Vector2 input)
     {

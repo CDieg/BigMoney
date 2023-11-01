@@ -6,6 +6,6 @@ public class LimitFPS : MonoBehaviour
 {
     void Start()
     {
-        Application.targetFrameRate = Screen.currentResolution.refreshRate;
+        Application.targetFrameRate = 60;
     }
 }
