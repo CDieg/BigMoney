@@ -27,13 +27,23 @@ public class PlayerHealth : MonoBehaviour
         if (damageOverlay.color.a > 0)
         {
             overlayTimer += Time.deltaTime;
-            if (overlayTimer > overlayDuration) 
+            if (overlayTimer > overlayDuration)
             {
                 // Fade
                 float tempAlpha = damageOverlay.color.a;
-                tempAlpha -= Time.deltaTime * overlayFadeSpeed;
-                damageOverlay.color = new Color (damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, tempAlpha);
+                if (health < 2 && tempAlpha < 0.55f)
+                {
+                    return;
+                }
+                else
+                {
+                    tempAlpha -= Time.deltaTime * overlayFadeSpeed;
+                    damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, tempAlpha);
+                }
+                
             }
+            
+            
         }
     }
 
@@ -47,5 +57,10 @@ public class PlayerHealth : MonoBehaviour
         health -= damage;
         overlayTimer = 0;
         damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 1);
+    }
+
+    public void heal (int healAmount)
+    {
+        health += healAmount;
     }
 }
