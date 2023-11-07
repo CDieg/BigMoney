@@ -8,10 +8,10 @@ public class Enemy : MonoBehaviour
     private StateMachine stateMachine;
     private UnityEngine.AI.NavMeshAgent agent;
     private GameObject player;
-    
-    
+    private Vector3 lastKnownPos;    
     public NavMeshAgent Agent {  get => agent; }
     public GameObject Player { get => player; }
+    public Vector3 LastKnownPos { get => lastKnownPos; set => lastKnownPos = value; }
     public Path path;
 
     [Header("Seight")]
@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
     public float eyeHight;
     [SerializeField]
     public float waitForSearch;
+    [SerializeField]
+    public float searchingTime = 10f;
 
     [Header("Weapon")]
     public Transform gunBarrel;
