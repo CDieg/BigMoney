@@ -7,9 +7,14 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField]
     private bool canShoot;
     [SerializeField]
-    private int currentAmmoInClip;
-    [SerializeField]
     private bool hasShot = false;
+    [SerializeField]
+    private bool canReload;
+    [SerializeField]
+    private bool hasReload = false;
+    [SerializeField]
+    private int currentAmmoInClip;
+   
     [SerializeField]
     private PlayerUI playerUI;
     [SerializeField]
@@ -38,9 +43,11 @@ public class PlayerShooting : MonoBehaviour
     {
         currentAmmoInClip = clipSize;
         canShoot = true;
+        canReload = false;
+        hasReload = false;
     }
     void Update()
-    {
+    {                
         if (hasShot && currentAmmoInClip > 0)
         {
             hasShot = false;
@@ -49,9 +56,18 @@ public class PlayerShooting : MonoBehaviour
             StartCoroutine(ShootWeapon());
             if (currentAmmoInClip == 0)
             {
+                canReload = false;
+                hasReload = false;
                 StartCoroutine(ReloadTimer());
-            }            
+            }
+            else canReload = true;
         }
+
+        if (!canReload)
+        {
+            hasReload = false;
+        }
+        else if (canReload && hasReload) StartCoroutine(ReloadTimer());
     }
     public void Fire1()
     {
@@ -63,7 +79,10 @@ public class PlayerShooting : MonoBehaviour
             Debug.DrawLine(shotOrigin.transform.position, hit.point, Color.red, 10f);            
         }
     }
-
+    public void Reload()
+    {
+        hasReload = true;        
+    }
     IEnumerator ShootWeapon()
     {
         yield return new WaitForSeconds(fireRate);
@@ -76,11 +95,15 @@ public class PlayerShooting : MonoBehaviour
     IEnumerator ReloadTimer()
     {
         // Reload Message
-        if (currentAmmoInClip == 0) playerUI.reloadShow();
+        if (currentAmmoInClip == 0 || hasReload) playerUI.reloadShow();
 
+        hasReload = false;
+        canReload = false;
+        canShoot = false;
         yield return new WaitForSeconds(reloadTime);
         currentAmmoInClip = clipSize;
         canShoot = true;
+        
 
         // Reload Message
         playerUI.reloadHide();
