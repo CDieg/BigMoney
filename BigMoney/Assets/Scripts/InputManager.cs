@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
 
     private PlayerMotor motor;
     private PlayerLook look;
+    private PlayerShooting shooting;
 
 
     // Start is called before the first frame update
@@ -19,9 +20,12 @@ public class InputManager : MonoBehaviour
         onFoot = playerInput.OnFoot;
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
+        shooting = GetComponent<PlayerShooting>();
+        
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.Crouch.performed += ctx => motor.Crouch();
         onFoot.Dash.performed += ctx => motor.Dash();
+        onFoot.Fire1.performed += ctx => shooting.Fire1();
     }
 
     // Update is called once per frame
