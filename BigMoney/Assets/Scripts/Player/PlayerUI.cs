@@ -7,16 +7,25 @@ public class PlayerUI : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI promptText;
+    [SerializeField]
+    private CanvasGroup reload;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     public void UpdateText(string promptMessage)
     {
         promptText.text = promptMessage;
+    }
+    public void reloadShow()
+    {
+        reload.alpha = 1;
+    }
+
+    public void reloadHide()
+    {
+        reload.alpha = 0;
     }
 }
