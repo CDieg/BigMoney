@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField]
     private GameObject reloadText;
 
+
     //
     // TODO Implement weapon class
     // private Weapon weapon;
@@ -37,7 +39,11 @@ public class PlayerShooting : MonoBehaviour
     private int clipSize = 6;
     [SerializeField]
     private float reloadTime = 2f;
-
+    // Muzzle
+    [SerializeField]
+    private Image muzzleFlash;
+    [SerializeField]
+    private Sprite[] flashes;
 
     private void Start()
     {
@@ -47,7 +53,8 @@ public class PlayerShooting : MonoBehaviour
         hasReload = false;
     }
     void Update()
-    {                
+    {
+
         if (hasShot && currentAmmoInClip > 0)
         {
             hasShot = false;
@@ -69,6 +76,14 @@ public class PlayerShooting : MonoBehaviour
         }
         else if (canReload && hasReload) StartCoroutine(ReloadTimer());
     }
+
+
+
+
+
+    //
+    // Weapon
+    //
     public void Fire1()
     {
         RaycastHit hit;
@@ -83,15 +98,20 @@ public class PlayerShooting : MonoBehaviour
     {
         hasReload = true;        
     }
+
+
+    //
+    // Coroutines
+    //
     IEnumerator ShootWeapon()
     {
+        StartCoroutine(MuzzleFlash());
         yield return new WaitForSeconds(fireRate);
         if (currentAmmoInClip > 0)
         {
             canShoot = true;
         }
     }
-
     IEnumerator ReloadTimer()
     {
         // Reload Message
@@ -107,5 +127,13 @@ public class PlayerShooting : MonoBehaviour
 
         // Reload Message
         playerUI.reloadHide();
+    }
+    IEnumerator MuzzleFlash()
+    {
+        muzzleFlash.sprite = flashes[Random.Range(0, flashes.Length)];
+        muzzleFlash.color = new Color(1f,1f,1f,0.5f);
+        yield return new WaitForSeconds(0.05f);
+        muzzleFlash.sprite = null;
+        muzzleFlash.color = new Color(0, 0, 0, 0);
     }
 }
