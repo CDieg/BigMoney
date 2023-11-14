@@ -1080,7 +1080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 303167096}
   m_Layer: 0
-  m_Name: Enemies_Spawner
+  m_Name: Enemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3404,6 +3404,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &910478943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 222558962235766028, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
+  m_PrefabInstance: {fileID: 2798595990134220164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &948422360
 GameObject:
   m_ObjectHideFlags: 0
@@ -6132,6 +6137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fd49cd4f7e5ca41b7ec37497f60de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 1694136708}
 --- !u!114 &1509728394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6189,8 +6195,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29feffeacab75044d91d7b4770c9c6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 6
+  canTakeDamage: 0
+  health: 100
+  maxHealth: 100
+  invincibilityTime: 5
   damageOverlay: {fileID: 1425193861}
   overlayDuration: 0.3
   overlayFadeSpeed: 5
@@ -6847,6 +6855,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1694136709}
+  - component: {fileID: 1694136710}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -6871,6 +6880,36 @@ Transform:
   - {fileID: 110486511}
   m_Father: {fileID: 840439180}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1694136710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694136708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04efc52a330ded646a68a13c03e19a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canShoot: 0
+  hasShot: 0
+  canReload: 0
+  hasReload: 0
+  currentAmmoInClip: 6
+  playerUI: {fileID: 1509728404}
+  reloadText: {fileID: 1660345357}
+  range: 100
+  damage: 25
+  shotOrigin: {fileID: 845198536}
+  fireRate: 0.1
+  clipSize: 6
+  reloadTime: 2
+  muzzleFlash: {fileID: 1671557709}
+  flashes:
+  - {fileID: 21300000, guid: 45861aecaac373e499c7700ce7cebf6f, type: 3}
+  - {fileID: 21300000, guid: b46ab9bdf8a78384492f957f6570afe0, type: 3}
+  - {fileID: 21300000, guid: 565c3951d91846241a97696b3184f6f8, type: 3}
 --- !u!1 &1759910035
 GameObject:
   m_ObjectHideFlags: 0
@@ -7258,6 +7297,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9151626519587825140, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
   m_PrefabInstance: {fileID: 2798595990134220164}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &1777226897
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910478943}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.08
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.85, z: 0}
+--- !u!54 &1777226898
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910478943}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1800389774
 GameObject:
   m_ObjectHideFlags: 0
@@ -8403,9 +8492,13 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 7454237349857528441}
+    - target: {fileID: 4553723909810167099, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9151626519587825140, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.212708
+      value: -21.19
       objectReference: {fileID: 0}
     - target: {fileID: 9151626519587825140, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8413,7 +8506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9151626519587825140, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -62.169792
+      value: 19.76
       objectReference: {fileID: 0}
     - target: {fileID: 9151626519587825140, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8446,7 +8539,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 222558962235766028, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1777226897}
+    - targetCorrespondingSourceObject: {fileID: 222558962235766028, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1777226898}
   m_SourcePrefab: {fileID: 100100000, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
 --- !u!1001 &7454237349857528440
 PrefabInstance:
@@ -8528,6 +8627,9 @@ PrefabInstance:
       addedObject: {fileID: 1694136709}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4187146282536263123, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 7454237349857528449}
+    - targetCorrespondingSourceObject: {fileID: 4187146282536263123, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1509728389}
     - targetCorrespondingSourceObject: {fileID: 4187146282536263123, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
@@ -8545,9 +8647,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4187146282536263123, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1509728409}
-    - targetCorrespondingSourceObject: {fileID: 4187146282536263123, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7454237349857528445}
     - targetCorrespondingSourceObject: {fileID: 3802688653537620787, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 840439175}
@@ -8560,35 +8659,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8683855233032418289, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
   m_PrefabInstance: {fileID: 7454237349857528440}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7454237349857528445
-MonoBehaviour:
+--- !u!136 &7454237349857528449
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509728387}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04efc52a330ded646a68a13c03e19a80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canShoot: 0
-  hasShot: 0
-  canReload: 0
-  hasReload: 0
-  currentAmmoInClip: 0
-  playerUI: {fileID: 1509728404}
-  reloadText: {fileID: 1660345357}
-  range: 250
-  shotOrigin: {fileID: 845198536}
-  fireRate: 0.1
-  clipSize: 6
-  reloadTime: 2
-  muzzleFlash: {fileID: 1671557709}
-  flashes:
-  - {fileID: 21300000, guid: 45861aecaac373e499c7700ce7cebf6f, type: 3}
-  - {fileID: 21300000, guid: b46ab9bdf8a78384492f957f6570afe0, type: 3}
-  - {fileID: 21300000, guid: 565c3951d91846241a97696b3184f6f8, type: 3}
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

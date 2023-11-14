@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerShooting : MonoBehaviour
+public class WeaponManager : MonoBehaviour
 {
     [SerializeField]
     private bool canShoot;
@@ -29,6 +29,7 @@ public class PlayerShooting : MonoBehaviour
 
     [Header("Shooting Controls")]
     public float range = 100f;
+    public float damage = 25f;
     public GameObject shotOrigin;
    
 
@@ -91,7 +92,15 @@ public class PlayerShooting : MonoBehaviour
         if (Physics.Raycast(shotOrigin.transform.position, shotOrigin.transform.forward, out hit, range) && canShoot)
         {
             hasShot = true;
-            Debug.DrawLine(shotOrigin.transform.position, hit.point, Color.red, 10f);            
+            
+            // Debug
+            Debug.DrawLine(shotOrigin.transform.position, hit.point, Color.red, 10f);
+
+            EnemyManager enemyManager = hit.transform.GetComponent<EnemyManager>();
+            if (enemyManager != null)
+            {
+                enemyManager.Hit(damage);
+            }
         }
     }
     public void Reload()

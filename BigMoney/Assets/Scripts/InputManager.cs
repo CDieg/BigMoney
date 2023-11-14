@@ -5,12 +5,14 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    private PlayerInput playerInput;
     public PlayerInput.OnFootActions onFoot;
 
+    [SerializeField]
+    private GameObject weapon;
+    private PlayerInput playerInput;
     private PlayerMotor motor;
     private PlayerLook look;
-    private PlayerShooting shooting;
+    private WeaponManager shooting;
 
 
     // Start is called before the first frame update
@@ -20,7 +22,7 @@ public class InputManager : MonoBehaviour
         onFoot = playerInput.OnFoot;
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
-        shooting = GetComponent<PlayerShooting>();
+        shooting = weapon.GetComponent<WeaponManager>();
         
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.Crouch.performed += ctx => motor.Crouch();

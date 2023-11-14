@@ -1,13 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField]
+    private bool canTakeDamage;
+    
     [Header("Health")]
     [SerializeField]
-    private int health;
+    private float health;
     [SerializeField]
-    public int maxHealth = 3;
+    public float maxHealth;
+    public float invincibilityTime;
 
     [Header("Damage Overlay")]
     public Image damageOverlay;
@@ -19,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        canTakeDamage = true;
         damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 0);
     }
 
@@ -49,18 +56,36 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateHealthUI()
     {
+        // TODO Health UI
         Debug.Log(health);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
-        health -= damage;
-        overlayTimer = 0;
-        damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 1);
+        if (canTakeDamage)
+        {            
+            health -= damage;
+            StartCoroutine(InvincibilityTime());
+            overlayTimer = 0;
+            damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 1);
+            if (health <= 0)
+            {
+                SceneManager.LoadScene(0);
+            }
+        }
     }
 
     public void heal (int healAmount)
     {
         health += healAmount;
+    }
+
+
+
+    IEnumerator InvincibilityTime()
+    {
+        canTakeDamage = false;
+        yield return new WaitForSeconds(invincibilityTime);
+        canTakeDamage = true;
     }
 }
