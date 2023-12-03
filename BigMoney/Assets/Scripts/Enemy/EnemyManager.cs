@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
     public float health = 100f;
     public float damage = 20f;
+    public int points = 5;
     private GameObject player;
+    private GameObject scoreManager;
+    private bool isDead = false;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        scoreManager = GameObject.FindGameObjectWithTag("Score");
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -22,9 +27,11 @@ public class EnemyManager : MonoBehaviour
     public void Hit(float damage)
     {
         health -= damage;
-        if (health <= 0)
-        {            
+        if (health <= 0 && !isDead)
+        {
+            isDead = true;
             Destroy(gameObject, 0.2f);
+            scoreManager.GetComponent<ScoreManager>().AddPoints(points);            
         }
     }
 
