@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class EnemyA_Navigation : MonoBehaviour
 {
-    public Transform player;
+    private Transform player;
     private UnityEngine.AI.NavMeshAgent agent;
 
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
