@@ -20,6 +20,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]
     private GameObject reloadText;
 
+    public ParticleSystem muzzleFlash;
+
 
     //
     // TODO Implement weapon class
@@ -39,11 +41,6 @@ public class WeaponManager : MonoBehaviour
     private int clipSize = 6;
     [SerializeField]
     private float reloadTime = 2f;
-    // Muzzle
-    [SerializeField]
-    private Image muzzleFlash;
-    [SerializeField]
-    private Sprite[] flashes;
 
     private void Start()
     {
@@ -86,6 +83,7 @@ public class WeaponManager : MonoBehaviour
     //
     public void Fire1()
     {
+        muzzleFlash.Play();
         RaycastHit hit;
 
         if (Physics.Raycast(shotOrigin.transform.position, shotOrigin.transform.forward, out hit, range) && canShoot)
@@ -113,8 +111,7 @@ public class WeaponManager : MonoBehaviour
     // Coroutines
     //
     IEnumerator ShootWeapon()
-    {
-        StartCoroutine(MuzzleFlash());
+    {        
         yield return new WaitForSeconds(fireRate);
         if (currentAmmoInClip > 0)
         {
@@ -136,13 +133,5 @@ public class WeaponManager : MonoBehaviour
 
         // Reload Message
         playerUI.reloadHide();
-    }
-    IEnumerator MuzzleFlash()
-    {
-        muzzleFlash.sprite = flashes[Random.Range(0, flashes.Length)];
-        muzzleFlash.color = new Color(1f,1f,1f,0.5f);
-        yield return new WaitForSeconds(0.05f);
-        muzzleFlash.sprite = null;
-        muzzleFlash.color = new Color(0, 0, 0, 0);
     }
 }
