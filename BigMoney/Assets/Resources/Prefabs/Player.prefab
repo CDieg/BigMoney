@@ -482,10 +482,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canTakeDamage: 0
-  gameManager: {fileID: 0}
   health: 100
   maxHealth: 100
-  invincibilityTime: 5
+  invincibilityTime: 1
   damageOverlay: {fileID: 0}
   overlayDuration: 0.3
   overlayFadeSpeed: 5

@@ -61,17 +61,6 @@ public class Attack_State : BaseState
         // Add force rigitbody of the bullet
         bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-3f, 3f), Vector3.up) * shootDirection * enemy.bulletSpeed;
 
-        Debug.Log("Shooting");
         shotTimer = 2;
-    }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
     }
 }

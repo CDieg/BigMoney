@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -95,6 +94,7 @@ public class WeaponManager : MonoBehaviour
             
             // Debug
             Debug.DrawLine(shotOrigin.transform.position, hit.point, Color.red, 10f);
+            Debug.Log(hit.transform.name);
 
             EnemyManager enemyManager = hit.transform.GetComponent<EnemyManager>();
             if (enemyManager != null)
