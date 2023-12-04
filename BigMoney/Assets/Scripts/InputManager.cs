@@ -27,7 +27,9 @@ public class InputManager : MonoBehaviour
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.Crouch.performed += ctx => motor.Crouch();
         onFoot.Dash.performed += ctx => motor.Dash();
-        onFoot.Fire1.performed += ctx => shooting.Fire1();
+        //onFoot.Fire1.performed += _ => shooting.Fire1();
+        onFoot.Fire1.started += ctx => shooting.StartShot();
+        onFoot.Fire1.canceled += ctx => shooting.EndShot();
         onFoot.Reload.performed += ctx => shooting.Reload();
     }
 

@@ -1,25 +1,15 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField]
-    private bool canShoot;
-    [SerializeField]
-    private bool hasShot = false;
-    [SerializeField]
-    private bool canReload;
-    [SerializeField]
-    private bool hasReload = false;
-    [SerializeField]
-    private int currentAmmoInClip;
-   
+    private RaycastHit hit;
+    [SerializeField] private bool isShooting, readyToShoot, reloading;
+
     [SerializeField]
     private PlayerUI playerUI;
     [SerializeField]
     private GameObject reloadText;
-
+    private int ammoLeft;
     public ParticleSystem muzzleFlash;
 
 
@@ -36,60 +26,66 @@ public class WeaponManager : MonoBehaviour
 
     [Header("Weapon Settings")]
     [SerializeField]
-    private float fireRate = 0.1f;
+    private float fireRate = 0.2f;
     [SerializeField]
-    private int clipSize = 6;
+    private int magazineSize = 100;
     [SerializeField]
     private float reloadTime = 2f;
+    [SerializeField]
+    private bool isAutomatic;
+    [SerializeField]
+    private float horizontalSpread, verticalSpread, burstDelay;
+    [SerializeField]
+    private int bulletsPerBurst;
+    private int bulletsShot;
 
-    private void Start()
+
+    private void Awake()
     {
-        currentAmmoInClip = clipSize;
-        canShoot = true;
-        canReload = false;
-        hasReload = false;
+        ammoLeft = magazineSize;
+        readyToShoot = true;
     }
+    
     void Update()
-    {
-
-        if (hasShot && currentAmmoInClip > 0)
+    {        
+        if (isShooting && readyToShoot && !reloading && ammoLeft > 0)
         {
-            hasShot = false;
-            canShoot = false;
-            currentAmmoInClip--;
-            StartCoroutine(ShootWeapon());
-            if (currentAmmoInClip == 0)
-            {
-                canReload = false;
-                hasReload = false;
-                StartCoroutine(ReloadTimer());
-            }
-            else canReload = true;
+            bulletsShot = bulletsPerBurst;
+            PerformShot();
+        }
+        if (isShooting && !reloading && ammoLeft == 0)
+        {
+            Reload();
         }
 
-        if (!canReload)
-        {
-            hasReload = false;
-        }
-        else if (canReload && hasReload) StartCoroutine(ReloadTimer());
     }
-
-
-
 
 
     //
     // Weapon
     //
-    public void Fire1()
+    public void StartShot()
     {
-        muzzleFlash.Play();
-        RaycastHit hit;
+        isShooting = true;
+    }
 
-        if (Physics.Raycast(shotOrigin.transform.position, shotOrigin.transform.forward, out hit, range) && canShoot)
+    public void EndShot()
+    {
+        isShooting = false;
+    }
+    
+    public void PerformShot()
+    {
+        readyToShoot = false;
+        muzzleFlash.Play();
+
+        float x = Random.Range(-horizontalSpread, horizontalSpread);
+        float y = Random.Range(-verticalSpread, verticalSpread);
+
+        Vector3 direction = shotOrigin.transform.forward + new Vector3(x, y, 0);
+
+        if (Physics.Raycast(shotOrigin.transform.position, direction, out hit, range))
         {
-            hasShot = true;
-            
             // Debug
             Debug.DrawLine(shotOrigin.transform.position, hit.point, Color.red, 10f);
             Debug.Log(hit.transform.name);
@@ -100,38 +96,49 @@ public class WeaponManager : MonoBehaviour
                 enemyManager.Hit(damage);
             }
         }
-    }
-    public void Reload()
-    {
-        hasReload = true;        
-    }
 
+        ammoLeft--;
+        bulletsShot--;
 
-    //
-    // Coroutines
-    //
-    IEnumerator ShootWeapon()
-    {        
-        yield return new WaitForSeconds(fireRate);
-        if (currentAmmoInClip > 0)
+        if (bulletsShot > 0 && ammoLeft > 0)
         {
-            canShoot = true;
+            Invoke("ResumeBurst", burstDelay);
+        }
+        else
+        {
+            Invoke("ResetShot", fireRate);
+
+            if (!isAutomatic)
+            {
+                EndShot();
+            }
         }
     }
-    IEnumerator ReloadTimer()
+
+    private void ResumeBurst()
     {
-        // Reload Message
-        if (currentAmmoInClip == 0 || hasReload) playerUI.reloadShow();
+        readyToShoot = true;
+        PerformShot();
+    }
 
-        hasReload = false;
-        canReload = false;
-        canShoot = false;
-        yield return new WaitForSeconds(reloadTime);
-        currentAmmoInClip = clipSize;
-        canShoot = true;
-        
+    private void ResetShot()
+    {
+        readyToShoot = true;
+    }
 
-        // Reload Message
+    public void Reload()
+    {
+        reloading = true;
+        Invoke("ReloadFinish", reloadTime);
+        // Reload UI Message
+        playerUI.reloadShow();
+    }
+
+    private void ReloadFinish()
+    {
+        ammoLeft = magazineSize;
+        reloading = false;
+        // Reload UI Message
         playerUI.reloadHide();
     }
 }
