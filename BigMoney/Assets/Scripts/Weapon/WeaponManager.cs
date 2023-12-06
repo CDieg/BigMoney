@@ -86,10 +86,6 @@ public class WeaponManager : MonoBehaviour
 
         if (Physics.Raycast(shotOrigin.transform.position, direction, out hit, range))
         {
-            // Debug
-            Debug.DrawLine(shotOrigin.transform.position, hit.point, Color.red, 10f);
-            Debug.Log(hit.transform.name);
-
             EnemyManager enemyManager = hit.transform.GetComponent<EnemyManager>();
             if (enemyManager != null)
             {

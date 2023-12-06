@@ -138,6 +138,8 @@ MonoBehaviour:
   health: 100
   damage: 20
   points: 5
+  deathDuration: 2
+  deathExplosion: {fileID: 1775638060515445378, guid: 160cbb8eaabc1414fa5cc66882c004a5, type: 3}
 --- !u!1 &686801031370578476
 GameObject:
   m_ObjectHideFlags: 0

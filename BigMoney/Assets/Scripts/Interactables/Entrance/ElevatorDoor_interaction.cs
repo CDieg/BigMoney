@@ -21,6 +21,5 @@ public class Elevator_Door : Interactable
     protected override void Interact() 
     {
         door.GetComponent<Animator>().SetBool("doorUp", true);
-        Debug.Log("Raycasted" + gameObject.name);
     }
 }
