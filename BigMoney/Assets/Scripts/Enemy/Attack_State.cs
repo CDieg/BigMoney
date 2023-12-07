@@ -7,6 +7,8 @@ public class Attack_State : BaseState
     private float moveTimer;
     private float losePlayerTimer;
     private float shotTimer;
+    [SerializeField]
+    private GameObject enemyBullet;
     public override void Enter()
     {
     }
@@ -53,7 +55,7 @@ public class Attack_State : BaseState
         Transform gunbarrel = enemy.gunBarrel;
 
         // Instantiate bullet
-        GameObject bullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet") as GameObject, gunbarrel.position, enemy.transform.rotation);
+        GameObject bullet = GameObject.Instantiate(enemyBullet as GameObject, gunbarrel.position, enemy.transform.rotation);
 
         // Calculate direction to player
         Vector3 shootDirection = (enemy.Player.transform.position - gunbarrel.transform.position).normalized;

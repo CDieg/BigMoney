@@ -7346,7 +7346,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -10227,6 +10227,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4187146282536263123, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4959104601314063669, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       propertyPath: reload
       value: 
@@ -10235,6 +10239,10 @@ PrefabInstance:
       propertyPath: promptText
       value: 
       objectReference: {fileID: 1561611901}
+    - target: {fileID: 5368657017048915672, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5779718483917579922, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.99907887
@@ -10258,6 +10266,18 @@ PrefabInstance:
     - target: {fileID: 5779718483917579922, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 2.713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250408216975380402, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250408216975380402, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.056
+      objectReference: {fileID: 0}
+    - target: {fileID: 7250408216975380402, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8004628229021603889, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       propertyPath: damageOverlay
