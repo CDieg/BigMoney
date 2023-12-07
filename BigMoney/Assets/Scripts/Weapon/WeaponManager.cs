@@ -1,7 +1,9 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class WeaponManager : MonoBehaviour
 {
+    private Ray ray;
     private RaycastHit hit;
     [SerializeField] private bool isShooting, readyToShoot, reloading;
 
@@ -11,7 +13,11 @@ public class WeaponManager : MonoBehaviour
     private GameObject reloadText;
     private int ammoLeft;
     public ParticleSystem muzzleFlash;
-
+    public GameObject bulletImpactMetal;
+    private GameObject impact;
+    [SerializeField]
+    private GameObject VFXProjectile;
+    private Quaternion rotation;
 
     //
     // TODO Implement weapon class
@@ -22,7 +28,9 @@ public class WeaponManager : MonoBehaviour
     public float range = 100f;
     public float damage = 25f;
     public GameObject shotOrigin;
-   
+    public Transform raycastOrigin;
+    public Transform raycastTarget;
+
 
     [Header("Weapon Settings")]
     [SerializeField]
@@ -79,13 +87,24 @@ public class WeaponManager : MonoBehaviour
         readyToShoot = false;
         muzzleFlash.Play();
 
+        ray.origin = raycastOrigin.position;
         float x = Random.Range(-horizontalSpread, horizontalSpread);
         float y = Random.Range(-verticalSpread, verticalSpread);
+        ray.direction = raycastTarget.position - raycastOrigin.position + new Vector3(x, y, 0);
 
-        Vector3 direction = shotOrigin.transform.forward + new Vector3(x, y, 0);
+        // Get rotation for bullet direction
+        rotation = Quaternion.LookRotation(ray.direction, Vector3.up);
 
-        if (Physics.Raycast(shotOrigin.transform.position, direction, out hit, range))
+        GameObject vfx;
+        vfx = Instantiate(VFXProjectile, raycastOrigin.transform.position, rotation);
+
+        if (Physics.Raycast(ray, out hit, range))
         {
+            //Debug.DrawLine(ray.origin, hit.point, Color.red, 5.0f);
+            
+            impact = Instantiate(bulletImpactMetal, hit.point, Quaternion.identity) as GameObject;
+            impact.transform.forward = hit.normal;
+
             EnemyManager enemyManager = hit.transform.GetComponent<EnemyManager>();
             if (enemyManager != null)
             {
@@ -93,6 +112,8 @@ public class WeaponManager : MonoBehaviour
             }
         }
 
+        
+        
         ammoLeft--;
         bulletsShot--;
 

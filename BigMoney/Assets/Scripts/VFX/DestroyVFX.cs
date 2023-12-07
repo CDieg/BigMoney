@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class DestroyVFX : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    private float time = 2f;
     void Start()
     {
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, time);
     }
 }
