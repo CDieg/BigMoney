@@ -10223,6 +10223,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2893001200552998919, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.14901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 2893001200552998919, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
+      propertyPath: InitialModule.startColor.minColor.a
+      value: 0.14117648
+      objectReference: {fileID: 0}
     - target: {fileID: 4187146282536263123, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       propertyPath: m_Name
       value: Player
@@ -10231,6 +10239,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4882723188737254449, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a195c01b0641a945aedb2e68ea23c3f, type: 2}
     - target: {fileID: 4959104601314063669, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       propertyPath: reload
       value: 
