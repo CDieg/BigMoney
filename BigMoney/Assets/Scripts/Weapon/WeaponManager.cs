@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -18,6 +19,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]
     private GameObject VFXProjectile;
     private Quaternion rotation;
+    [SerializeField]
+    private Animator playerAnimator;
+    [SerializeField]
+    private Animator weaponAnimator;
+
 
     //
     // TODO Implement weapon class
@@ -130,6 +136,11 @@ public class WeaponManager : MonoBehaviour
                 EndShot();
             }
         }
+
+        // Animations
+        playerAnimator.SetTrigger("Shoot");
+        weaponAnimator.SetTrigger("Shoot");
+
     }
 
     private void ResumeBurst()
@@ -149,6 +160,10 @@ public class WeaponManager : MonoBehaviour
         Invoke("ReloadFinish", reloadTime);
         // Reload UI Message
         playerUI.reloadShow();
+
+        // Animations
+        playerAnimator.SetBool("Reload", true);
+        weaponAnimator.SetBool("Reload", true);
     }
 
     private void ReloadFinish()
@@ -157,5 +172,9 @@ public class WeaponManager : MonoBehaviour
         reloading = false;
         // Reload UI Message
         playerUI.reloadHide();
+
+        // Animations
+        playerAnimator.SetBool("Reload", false);
+        weaponAnimator.SetBool("Reload", false);
     }
 }

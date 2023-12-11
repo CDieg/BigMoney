@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMotor : MonoBehaviour
 {
@@ -32,6 +33,11 @@ public class PlayerMotor : MonoBehaviour
     private float dashAcceleration = 15f;
     [SerializeField]
     private float dashReloadTime = 2f;
+
+    [SerializeField]
+    private Animator playerAnimator;
+    [SerializeField]
+    private Animator weaponAnimator;
 
 
     // Start is called before the first frame update
@@ -73,6 +79,8 @@ public class PlayerMotor : MonoBehaviour
         if (isGrounded && playerVelocity.y < 0)
             playerVelocity.y = -2f;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        Animations(input);
     }
 
     public void Jump()
@@ -106,6 +114,20 @@ public class PlayerMotor : MonoBehaviour
         {
             speed = speedValue;
         }        
+    }
+
+    private void Animations(Vector2 move)
+    {
+        if ((move.x == 0 && move.y == 0) || !isGrounded)
+        {
+            playerAnimator.SetFloat("Speed", 0f, 0.2f, Time.deltaTime);
+            weaponAnimator.SetFloat("Speed", 0f, 0.2f, Time.deltaTime);
+        }
+        else
+        {
+            playerAnimator.SetFloat("Speed", 1f, 0.2f, Time.deltaTime);
+            weaponAnimator.SetFloat("Speed", 1f, 0.2f, Time.deltaTime);
+        }
     }
 
     IEnumerator DashTimerRoutine()
