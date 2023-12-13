@@ -3146,7 +3146,7 @@ Transform:
   m_GameObject: {fileID: 712699928}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6771548, y: -0, z: -0, w: 0.7358407}
-  m_LocalPosition: {x: -193.397, y: 59.922, z: 172.942}
+  m_LocalPosition: {x: -194.008, y: 59.922, z: 172.942}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3164,10 +3164,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 15.28
-  m_Range: 7.22
-  m_SpotAngle: 145.0018
-  m_InnerSpotAngle: 19.852898
+  m_Intensity: 10
+  m_Range: 10
+  m_SpotAngle: 174.23955
+  m_InnerSpotAngle: 56.88738
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -4858,51 +4858,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!1 &1003837338
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1003837340}
-  - component: {fileID: 1003837339}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1003837339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003837338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79d104b72d33d74cb818581c51c09f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  restartDelay: 0
---- !u!4 &1003837340
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003837338}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1106.5828, y: 605.38416, z: 127.58436}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1040359913
 GameObject:
   m_ObjectHideFlags: 0
@@ -10453,7 +10408,6 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1003837340}
   - {fileID: 7454237349857528440}
   - {fileID: 686116145}
   - {fileID: 207298131}

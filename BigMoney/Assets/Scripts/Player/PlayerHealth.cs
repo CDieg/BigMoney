@@ -71,8 +71,8 @@ public class PlayerHealth : MonoBehaviour
             damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 1);
             if (health <= 0)
             {
-                FindObjectOfType<GameManager>().GameOver();
-                SceneManager.LoadScene(0);
+                //FindObjectOfType<GameManager>().GameOver();
+                GameManager.instance.GameOver();
             }
         }
     }

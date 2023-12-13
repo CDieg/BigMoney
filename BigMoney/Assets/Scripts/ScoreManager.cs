@@ -4,8 +4,11 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager instance;
+
     public int score;
     public TextMeshProUGUI scoreText;
+
     private void Start()
     {
         score = 0;
@@ -20,5 +23,11 @@ public class ScoreManager : MonoBehaviour
     {
         score += points;
         UpdateScore();
+        SaveScore();
+    }
+
+    public void SaveScore()
+    {
+        PlayerPrefs.SetInt("PlayerScore", score);
     }
 }
