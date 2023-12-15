@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
 
             // SFX
             SoundManager.PlayOneShotSound(SoundManager.Sound.EnemyExplosion1);
-            Invoke("Coins", 0.1f);
+            Invoke("Coins", 0.2f);
 
             // Player explosion effect
             GameObject explosion = Instantiate(deathExplosion) as GameObject;
