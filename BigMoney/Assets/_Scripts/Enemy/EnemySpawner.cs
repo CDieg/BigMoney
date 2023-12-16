@@ -5,27 +5,71 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject chaser;
+    private int maxEnemies = 20;
     [SerializeField]
-    private float chaserInterval = 5f;
+    private int enemiesNumber;
+
+    [Header("Spawner 01")]
     [SerializeField]
-    private Vector3 SpawnerPosition;
+    private GameObject enemy01;
+    [SerializeField]
+    private float chaserInterval01 = 5f;
+    [SerializeField]
+    private GameObject SpawnerPosition01;
+
+    [Header("Spawner 02")]
+    [SerializeField]
+    private GameObject enemy02;
+    [SerializeField]
+    private float chaserInterval02 = 5f;
+    [SerializeField]
+    private GameObject SpawnerPosition02;
+
+    [Header("Spawner 03")]
+    [SerializeField]
+    private GameObject enemy03;
+    [SerializeField]
+    private float chaserInterval03 = 5f;
+    [SerializeField]
+    private GameObject SpawnerPosition03;
+
+    [Header("Spawner 04")]
+    [SerializeField]
+    private GameObject enemy04;
+    [SerializeField]
+    private float chaserInterval04 = 5f;
+    [SerializeField]
+    private GameObject SpawnerPosition04;
+
+
 
     private void Start()
     {
-        {
-            SpawnerPosition = transform.position;
-        }
+        enemiesNumber = 0;
     }
 
     public void StartSpawner()
     {
-        StartCoroutine(spawnEnemy(chaserInterval, chaser));
+        StartCoroutine(spawnEnemy(chaserInterval01, enemy01, SpawnerPosition01));
+        StartCoroutine(spawnEnemy(chaserInterval02, enemy02, SpawnerPosition02));
+        StartCoroutine(spawnEnemy(chaserInterval03, enemy03, SpawnerPosition03));
+        StartCoroutine(spawnEnemy(chaserInterval04, enemy04, SpawnerPosition04));        
     }
-    private IEnumerator spawnEnemy(float interval, GameObject enemy)
+
+    public void enemyDied ()
+    {
+        enemiesNumber--;
+    }
+
+
+    private IEnumerator spawnEnemy(float interval, GameObject enemy, GameObject position)
     {
         yield return new WaitForSeconds (interval);
-        GameObject newEnemy = Instantiate(enemy, SpawnerPosition, Quaternion.identity);
-        StartCoroutine(spawnEnemy(interval, enemy));
+        if (enemiesNumber < maxEnemies)
+        {
+            GameObject newEnemy = Instantiate(enemy, position.transform.position, Quaternion.identity);
+            enemiesNumber++;
+        }        
+        StartCoroutine(spawnEnemy(interval, enemy, position));
     }
 }

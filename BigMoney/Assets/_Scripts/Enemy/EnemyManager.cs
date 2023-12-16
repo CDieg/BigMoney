@@ -11,6 +11,7 @@ public class EnemyManager : MonoBehaviour
     public int points = 5;
     private GameObject player;
     private GameObject scoreManager;
+    private GameObject spawner;
     private bool isDead = false;
     public GameObject deathExplosion;
 
@@ -18,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         scoreManager = GameObject.FindGameObjectWithTag("Score");
+        spawner = GameObject.FindGameObjectWithTag("Spawner");
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -46,6 +48,7 @@ public class EnemyManager : MonoBehaviour
             GameObject explosion = Instantiate(deathExplosion) as GameObject;
             explosion.transform.position = gameObject.transform.position + new Vector3(0, 1, 0);
             scoreManager.GetComponent<ScoreManager>().AddPoints(points);
+            spawner.GetComponent<EnemySpawner>().enemyDied();
             Destroy(gameObject);
         }
     }
