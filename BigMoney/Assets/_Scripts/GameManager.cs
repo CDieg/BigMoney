@@ -64,6 +64,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Win()
+    {
+        if (!gameHasEnded)
+        {
+            gameHasEnded = true;
+            SceneManager.LoadScene("Win");
+        }
+    }
+
     private void Restart()
     {
         SceneManager.LoadScene(0);

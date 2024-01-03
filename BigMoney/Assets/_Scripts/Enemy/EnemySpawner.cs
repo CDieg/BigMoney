@@ -8,6 +8,8 @@ public class EnemySpawner : MonoBehaviour
     private int maxEnemies = 20;
     [SerializeField]
     private int enemiesNumber;
+    [SerializeField]
+    private int enemiesToWin = 50;
 
     [Header("Spawner 01")]
     [SerializeField]
@@ -59,6 +61,11 @@ public class EnemySpawner : MonoBehaviour
     public void enemyDied ()
     {
         enemiesNumber--;
+        enemiesToWin--;
+        if (enemiesToWin <= 0)
+        {
+            GameManager.instance.Win();
+        }
     }
 
 
