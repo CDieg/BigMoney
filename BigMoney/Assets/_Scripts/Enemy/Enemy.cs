@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Weapon")]
     public Transform gunBarrel;
+    public Transform gunBarrel2;
     [SerializeField]
     public float fireRate;
     [SerializeField]

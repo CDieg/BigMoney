@@ -42,12 +42,12 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Pause:
                 break;
+            case GameState.NextLevel:
+                break;
             case GameState.GameOver:
                 GameManager.instance.UnlockCursor();
                 break;
             case GameState.Win:
-
-
                 break;
         }
 
@@ -73,6 +73,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void NextLevel()
+    {
+        if (!gameHasEnded)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
     private void Restart()
     {
         SceneManager.LoadScene(0);
@@ -89,6 +96,7 @@ public enum GameState
     MainMenu,
     Play,
     Pause,
+    NextLevel,
     GameOver,
     Win
 }
