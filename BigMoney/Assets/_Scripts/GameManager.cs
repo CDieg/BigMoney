@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void NextLevel()
+    public void NextLevel()
     {
         if (!gameHasEnded)
         {

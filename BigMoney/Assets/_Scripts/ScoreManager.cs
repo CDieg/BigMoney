@@ -11,7 +11,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        score = 0;
+        score = SaveData.score;
         UpdateScore();
     }
 
@@ -28,6 +28,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore()
     {
-        PlayerPrefs.SetInt("PlayerScore", score);
+        //PlayerPrefs.SetInt("PlayerScore", score);
+        SaveData.score = score;
     }
 }

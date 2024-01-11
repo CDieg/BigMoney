@@ -64,7 +64,7 @@ public class EnemySpawner : MonoBehaviour
         enemiesToWin--;
         if (enemiesToWin <= 0)
         {
-            GameManager.instance.Win();
+            GameManager.instance.NextLevel();
         }
     }
 
