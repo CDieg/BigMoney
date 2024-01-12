@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     }
     private void Restart()
     {
+        SaveData.score = 0;
         SceneManager.LoadScene(0);
     }
     public void UnlockCursor()
