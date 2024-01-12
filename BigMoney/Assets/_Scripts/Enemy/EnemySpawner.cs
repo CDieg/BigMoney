@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public GameObject levelEnd;
+    public GameObject playerUI;
+
     [SerializeField]
     private int maxEnemies = 20;
     [SerializeField]
@@ -64,7 +67,9 @@ public class EnemySpawner : MonoBehaviour
         enemiesToWin--;
         if (enemiesToWin <= 0)
         {
-            GameManager.instance.NextLevel();
+            levelEnd.SetActive(true);
+            playerUI.SetActive(false);
+            GameManager.instance.UpdateGameState(GameState.Pause);
         }
     }
 

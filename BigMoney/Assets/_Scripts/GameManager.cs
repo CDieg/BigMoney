@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError($"Found duplicate ScoreManager instance on {gameObject.name}");
+            Debug.LogError($"Found duplicate GameManager instance on {gameObject.name}");
             Destroy(gameObject);
             return;
         }
@@ -39,8 +39,11 @@ public class GameManager : MonoBehaviour
                 GameManager.instance.UnlockCursor();
                 break;
             case GameState.Play:
+                Time.timeScale = 1f;
                 break;
             case GameState.Pause:
+                Time.timeScale = 0f;
+                GameManager.instance.UnlockCursor();
                 break;
             case GameState.NextLevel:
                 break;
@@ -76,8 +79,10 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         if (!gameHasEnded)
-        {
+        {            
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.SetActiveScene(SceneManager.GetActiveScene());
+            UpdateGameState(GameState.Play);
         }
     }
     private void Restart()
