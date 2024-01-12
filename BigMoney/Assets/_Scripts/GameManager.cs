@@ -85,11 +85,14 @@ public class GameManager : MonoBehaviour
             UpdateGameState(GameState.Play);
         }
     }
+    
+    /*
     private void Restart()
     {
         SaveData.score = 0;
         SceneManager.LoadScene(0);
-    }
+    } */
+
     public void UnlockCursor()
     {
         Cursor.visible = true;

@@ -12000,7 +12000,7 @@ MonoBehaviour:
   playerUI: {fileID: 7790730971488761296}
   maxEnemies: 10
   enemiesNumber: 0
-  enemiesToWin: 5
+  enemiesToWin: 10
   enemy01: {fileID: 222558962235766028, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
   chaserInterval01: 10
   SpawnerPosition01: {fileID: 1250804158}
@@ -12955,11 +12955,11 @@ PrefabInstance:
       objectReference: {fileID: 1561611901}
     - target: {fileID: 8004628229021603889, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       propertyPath: health
-      value: 2000
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8004628229021603889, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       propertyPath: maxHealth
-      value: 2000
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8004628229021603889, guid: 2ed0d7eb05072c844bf7db8e13534eed, type: 3}
       propertyPath: damageOverlay

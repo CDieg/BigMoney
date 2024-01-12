@@ -32,6 +32,7 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayGame()
     {
+        SaveData.score = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.SetActiveScene(SceneManager.GetActiveScene());
     }

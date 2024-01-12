@@ -10369,7 +10369,7 @@ MonoBehaviour:
   playerUI: {fileID: 1504177171}
   maxEnemies: 20
   enemiesNumber: 0
-  enemiesToWin: 1
+  enemiesToWin: 10
   enemy01: {fileID: 222558962235766028, guid: 22937d80bf56d5041aa946300e52fd84, type: 3}
   chaserInterval01: 10
   SpawnerPosition01: {fileID: 1250804158}
