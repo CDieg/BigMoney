@@ -8,6 +8,9 @@ public class EnemySpawner : MonoBehaviour
     public GameObject playerUI;
 
     [SerializeField]
+    private bool lastlevel;
+
+    [SerializeField]
     private int maxEnemies = 20;
     [SerializeField]
     private int enemiesNumber;
@@ -65,11 +68,14 @@ public class EnemySpawner : MonoBehaviour
     {
         enemiesNumber--;
         enemiesToWin--;
-        if (enemiesToWin <= 0)
+        if (enemiesToWin <= 0 && !lastlevel)
         {
             levelEnd.SetActive(true);
             playerUI.SetActive(false);
             GameManager.instance.UpdateGameState(GameState.Pause);
+        } else if (enemiesToWin <= 0 && lastlevel)
+        {
+            GameManager.instance.Win();
         }
     }
 
